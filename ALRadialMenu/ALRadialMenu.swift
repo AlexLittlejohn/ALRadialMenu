@@ -20,42 +20,6 @@ private struct Angle {
 
 public class ALRadialMenu: UIButton {
     
-    // MARK: private vars
-    
-    private var delay: Double = 0
-    private var buttons = [ALRadialMenuButton]() {
-        didSet {
-            spacingDegrees = Angle(degrees: circumference.degrees / Double(buttons.count))
-        }
-    }
-    
-    private var dismissOnOverlayTap = true {
-        didSet {
-            if let gesture = dismissGesture {
-                gesture.enabled = dismissOnOverlayTap
-            }
-        }
-    }
-    
-    private var overlayView = UIView(frame: UIScreen.mainScreen().bounds)
-    
-    private var radius: CGFloat = 100
-    private var startAngle: Angle = Angle(degrees: 270)
-    private var circumference: Angle = Angle(degrees: 360) {
-        didSet {
-            if buttons.count > 0 {
-                spacingDegrees = Angle(degrees: circumference.degrees / Double(buttons.count))
-            }
-        }
-    }
-    
-    private var spacingDegrees: Angle!
-    private var animationOrigin: CGPoint!
-    
-    private var dismissGesture: UITapGestureRecognizer!
-    
-    private var animationOptions = UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.BeginFromCurrentState
-    
     // MARK: Public API
     
     public convenience init() {
@@ -72,11 +36,25 @@ public class ALRadialMenu: UIButton {
         commonInit()
     }
     
+    /**
+    Set a delay to stagger the showing of each subsequent radial button
+    
+    Note: this is a bit buggy when using UIView animations
+    
+    Default = 0
+    
+    :param: Double The delay in seconds
+    */
     public func setDelay(delay: Double) -> Self {
         self.delay = delay
         return self
     }
     
+    /**
+    Set the buttons to display when present is called. Each button should be an instance of ALRadialMenuButton
+    
+    :param: Array An array of ALRadialMenuButton instances
+    */
     public func setButtons(buttons: [ALRadialMenuButton]) -> Self {
         self.buttons = buttons
         
@@ -96,32 +74,81 @@ public class ALRadialMenu: UIButton {
         return self
     }
     
+    /**
+    Set to false to disable dismissing the menu on background tap
+    
+    Default = true
+    
+    :param: Bool enabled or disable the gesture
+    */
     public func setDismissOnOverlayTap(dismissOnOverlayTap: Bool) -> Self {
         self.dismissOnOverlayTap = dismissOnOverlayTap
         return self
     }
     
-    public func setRadius(radius: CGFloat) -> Self {
+    /**
+    Set the radius to control how far from the point of origin the buttons should show when the menu is open
+    
+    Default = 100
+    
+    :param: Double the radius in pts
+    */
+    public func setRadius(radius: Double) -> Self {
         self.radius = radius
         return self
     }
     
+    /**
+    Set the starting angle from which to lay out the buttons
+    
+    Default = 270
+    
+    :param: Double the angle in degrees
+    */
     public func setStartAngle(degrees: Double) -> Self {
         self.startAngle = Angle(degrees: degrees)
         return self
     }
     
+    /**
+    Set the total circumference that the buttons should be laid out in
+    
+    Default = 360
+    
+    :param: Double the circumference in degrees
+    */
     public func setCircumference(degrees: Double) -> Self {
         self.circumference = Angle(degrees: degrees)
         return self
     }
     
+    /**
+    Set the origin point from which the buttons should animate
+    
+    Default = self.center
+    
+    :param: CGPoint the origin point
+    */
     public func setAnimationOrigin(animationOrigin: CGPoint) -> Self {
         self.animationOrigin = animationOrigin
         return self
     }
     
-    public func present() -> Self {
+    /**
+    Present the buttons in the specified view's window
+    
+    :param: UIView view
+    */
+    public func presentInView(view: UIView) -> Self {
+        return presentInWindow(view.window!)
+    }
+    
+    /**
+    Present the buttons in the specified window
+    
+    :param: UIWindow window
+    */
+    public func presentInWindow(win: UIWindow) -> Self {
         
         if buttons.count == 0 {
             println("ALRadialMenu has no buttons to present")
@@ -132,25 +159,22 @@ public class ALRadialMenu: UIButton {
             animationOrigin = center
         }
         
-        if let w = window {
+        win.addSubview(overlayView)
+        
+        for i in 0..<buttons.count {
             
-            w.addSubview(overlayView)
+            let button = buttons[i]
             
-            for i in 0..<buttons.count {
-                
-                let button = buttons[i]
-                
-                w.addSubview(button)
-                presentAnimation(button, index: i)
-            }
-            
-        } else {
-            println("ALRadialMenu needs a parent view")
+            win.addSubview(button)
+            presentAnimation(button, index: i)
         }
         
         return self
     }
     
+    /**
+    Dismiss the buttons with an animation
+    */
     public func dismiss() -> Self {
         
         if buttons.count == 0 {
@@ -163,6 +187,39 @@ public class ALRadialMenu: UIButton {
         return self
     }
     
+    // MARK: private vars
+    
+    private var delay: Double = 0
+    private var buttons = [ALRadialMenuButton]() {
+        didSet {
+            calculateSpacing()
+        }
+    }
+    
+    private var dismissOnOverlayTap = true {
+        didSet {
+            if let gesture = dismissGesture {
+                gesture.enabled = dismissOnOverlayTap
+            }
+        }
+    }
+    
+    private var overlayView = UIView(frame: UIScreen.mainScreen().bounds)
+    
+    private var radius: Double = 100
+    private var startAngle: Angle = Angle(degrees: 270)
+    private var circumference: Angle = Angle(degrees: 360) {
+        didSet {
+            calculateSpacing()
+        }
+    }
+    
+    private var spacingDegrees: Angle!
+    private var animationOrigin: CGPoint!
+    
+    private var dismissGesture: UITapGestureRecognizer!
+    private var animationOptions = UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.BeginFromCurrentState
+
     // MARK: Private API
     private func commonInit() {
         dismissGesture = UITapGestureRecognizer(target: self, action: "dismiss")
@@ -194,7 +251,7 @@ public class ALRadialMenu: UIButton {
         UIView.animateWithDuration(0.5, delay: _delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: animationOptions, animations: {
             view.alpha = 1
             view.center = newCenter
-            }, completion: nil)
+        }, completion: nil)
     }
     
     private func dismissAnimation(view: ALRadialMenuButton, index: Int) {
@@ -202,30 +259,40 @@ public class ALRadialMenu: UIButton {
         UIView.animateWithDuration(0.5, delay: _delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: animationOptions, animations: {
             view.alpha = 0
             view.center = self.animationOrigin
-            }, completion: { finished in
-                view.removeFromSuperview()
+        }, completion: { finished in
+            view.removeFromSuperview()
         })
     }
     
     private func selectedAnimation(view: ALRadialMenuButton) {
-
-        
-        
         UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: animationOptions, animations: {
             view.alpha = 0
             view.transform = CGAffineTransformMakeScale(1.5, 1.5)
-            }, completion: { finished in
-                view.transform = CGAffineTransformIdentity
-                view.removeFromSuperview()
+        }, completion: { finished in
+            view.transform = CGAffineTransformIdentity
+            view.removeFromSuperview()
         })
     }
     
-    private func pointOnCircumference(origin: CGPoint, radius: CGFloat, angle: Angle) -> CGPoint {
+    private func pointOnCircumference(origin: CGPoint, radius: Double, angle: Angle) -> CGPoint {
         
         let radians = angle.radians()
-        let x = origin.x + radius * CGFloat(cos(radians))
-        let y = origin.y + radius * CGFloat(sin(radians))
+        let x = origin.x + CGFloat(radius) * CGFloat(cos(radians))
+        let y = origin.y + CGFloat(radius) * CGFloat(sin(radians))
         
         return CGPointMake(x, y)
+    }
+    
+    private func calculateSpacing() {
+        if buttons.count > 0 {
+            
+            var c = buttons.count
+            
+            if circumference.degrees < 360 {
+                c--
+            }
+            
+            spacingDegrees = Angle(degrees: circumference.degrees / Double(c))
+        }
     }
 }
