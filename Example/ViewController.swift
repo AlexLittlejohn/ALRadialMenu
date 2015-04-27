@@ -9,25 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    var radialMenu: ALRadialMenu!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let gesture = UITapGestureRecognizer(target: self, action: "showMenu:")
+        view.addGestureRecognizer(gesture)
         view.backgroundColor = UIColor.whiteColor()
-        
-        radialMenu = ALRadialMenu(frame: CGRectMake(0, 0, 66, 66))
-        radialMenu.center = view.center
-
-        radialMenu.setImage(UIImage(named: "centerIcon"), forState: UIControlState.Normal)
-        
-        radialMenu.setButtons(generateButtons())
-        radialMenu.addTarget(self, action: "showMenu", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        view.addSubview(radialMenu)
-        
-        
     }
 
     func generateButtons() -> [ALRadialMenuButton] {
@@ -43,8 +29,11 @@ class ViewController: UIViewController {
         return buttons
     }
     
-    func showMenu() {
-        radialMenu.present()
+    func showMenu(sender: UITapGestureRecognizer) {
+        ALRadialMenu()
+            .setButtons(generateButtons())
+            .setAnimationOrigin(sender.locationInView(view))
+            .presentInView(view)
     }
 }
 
