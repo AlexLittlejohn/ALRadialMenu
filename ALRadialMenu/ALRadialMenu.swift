@@ -247,7 +247,7 @@ public class ALRadialMenu: UIButton {
         let _delay = Double(index) * delay
         
         view.center = animationOrigin
-        
+        view.alpha = 0
         UIView.animateWithDuration(0.5, delay: _delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: animationOptions, animations: {
             view.alpha = 1
             view.center = newCenter
