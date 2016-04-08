@@ -9,11 +9,21 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    let label = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let gesture = UITapGestureRecognizer(target: self, action: "showMenu:")
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(showMenu(_:)))
         view.addGestureRecognizer(gesture)
         view.backgroundColor = UIColor.whiteColor()
+        
+        label.textColor = UIColor.lightGrayColor()
+        label.text = "Tap anywhere"
+        label.sizeToFit()
+        label.center = view.center
+        
+        view.addSubview(label)
     }
 
     func generateButtons() -> [ALRadialMenuButton] {
