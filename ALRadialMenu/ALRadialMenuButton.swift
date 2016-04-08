@@ -18,7 +18,7 @@ public class ALRadialMenuButton: UIButton {
     }
     
     private func configureAction() {
-        addTarget(self, action: "performAction", forControlEvents: UIControlEvents.TouchUpInside)
+        addTarget(self, action: #selector(performAction), forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     internal func performAction() {
