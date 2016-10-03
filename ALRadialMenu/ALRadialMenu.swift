@@ -23,7 +23,7 @@ public class ALRadialMenu: UIButton {
     // MARK: Public API
     
     public convenience init() {
-        self.init(frame: CGRectZero)
+        self.init(frame: CGRect.zero)
     }
     
     public override init(frame: CGRect) {
@@ -64,7 +64,7 @@ public class ALRadialMenu: UIButton {
             
             button.center = center
             button.action = {
-                self._dismiss(i)
+                self._dismiss(selectedIndex: i)
                 if let a = action {
                     a()
                 }
@@ -140,7 +140,7 @@ public class ALRadialMenu: UIButton {
     - parameter UIView: view
     */
     public func presentInView(view: UIView) -> Self {
-        return presentInWindow(view.window!)
+        return presentInWindow(win: view.window!)
     }
     
     /**
@@ -166,7 +166,7 @@ public class ALRadialMenu: UIButton {
             let button = buttons[i]
             
             win.addSubview(button)
-            presentAnimation(button, index: i)
+            presentAnimation(view: button, index: i)
         }
         
         return self
@@ -182,7 +182,7 @@ public class ALRadialMenu: UIButton {
             return
         }
         
-        _dismiss(-1)
+        _dismiss(selectedIndex: -1)
     }
     
     // MARK: private vars
@@ -197,12 +197,12 @@ public class ALRadialMenu: UIButton {
     private var dismissOnOverlayTap = true {
         didSet {
             if let gesture = dismissGesture {
-                gesture.enabled = dismissOnOverlayTap
+                gesture.isEnabled = dismissOnOverlayTap
             }
         }
     }
     
-    private var overlayView = UIView(frame: UIScreen.mainScreen().bounds)
+    private var overlayView = UIView(frame: UIScreen.main.bounds)
     
     private var radius: Double = 100
     private var startAngle: Angle = Angle(degrees: 270)
@@ -216,12 +216,12 @@ public class ALRadialMenu: UIButton {
     private var animationOrigin: CGPoint!
     
     private var dismissGesture: UITapGestureRecognizer!
-    private var animationOptions: UIViewAnimationOptions = [UIViewAnimationOptions.CurveEaseInOut, UIViewAnimationOptions.BeginFromCurrentState]
+    private var animationOptions: UIViewAnimationOptions = [.curveEaseInOut, .beginFromCurrentState]
 
     // MARK: Private API
     private func commonInit() {
         dismissGesture = UITapGestureRecognizer(target: self, action: #selector(ALRadialMenu.dismiss))
-        dismissGesture.enabled = dismissOnOverlayTap
+        dismissGesture.isEnabled = dismissOnOverlayTap
         
         overlayView.addGestureRecognizer(dismissGesture)
     }
@@ -232,21 +232,21 @@ public class ALRadialMenu: UIButton {
         
         for i in 0..<buttons.count {
             if i == selectedIndex {
-                selectedAnimation(buttons[i])
+                selectedAnimation(view: buttons[i])
             } else {
-                dismissAnimation(buttons[i], index: i)
+                dismissAnimation(view: buttons[i], index: i)
             }
         }
     }
     
     private func presentAnimation(view: ALRadialMenuButton, index: Int) {
         let degrees = startAngle.degrees + spacingDegrees.degrees * Double(index)
-        let newCenter = pointOnCircumference(animationOrigin, radius: radius, angle: Angle(degrees: degrees))
+        let newCenter = pointOnCircumference(origin: animationOrigin, radius: radius, angle: Angle(degrees: degrees))
         let _delay = Double(index) * delay
         
         view.center = animationOrigin
         view.alpha = 0
-        UIView.animateWithDuration(0.5, delay: _delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: animationOptions, animations: {
+        UIView.animate(withDuration: 0.5, delay: _delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: animationOptions, animations: {
             view.alpha = 1
             view.center = newCenter
         }, completion: nil)
@@ -254,7 +254,7 @@ public class ALRadialMenu: UIButton {
     
     private func dismissAnimation(view: ALRadialMenuButton, index: Int) {
         let _delay = Double(index) * delay
-        UIView.animateWithDuration(0.5, delay: _delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: animationOptions, animations: {
+        UIView.animate(withDuration: 0.5, delay: _delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: animationOptions, animations: {
             view.alpha = 0
             view.center = self.animationOrigin
         }, completion: { finished in
@@ -263,11 +263,11 @@ public class ALRadialMenu: UIButton {
     }
     
     private func selectedAnimation(view: ALRadialMenuButton) {
-        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: animationOptions, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: animationOptions, animations: {
             view.alpha = 0
-            view.transform = CGAffineTransformMakeScale(1.5, 1.5)
+            view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         }, completion: { finished in
-            view.transform = CGAffineTransformIdentity
+            view.transform = CGAffineTransform.identity
             view.removeFromSuperview()
         })
     }
@@ -278,7 +278,7 @@ public class ALRadialMenu: UIButton {
         let x = origin.x + CGFloat(radius) * CGFloat(cos(radians))
         let y = origin.y + CGFloat(radius) * CGFloat(sin(radians))
         
-        return CGPointMake(x, y)
+        return CGPoint(x: x, y: y)
     }
     
     private func calculateSpacing() {
