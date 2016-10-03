@@ -14,11 +14,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(showMenu(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(showMenu(sender:)))
         view.addGestureRecognizer(gesture)
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         
-        label.textColor = UIColor.lightGrayColor()
+        label.textColor = UIColor.lightGray
         label.text = "Tap anywhere"
         label.sizeToFit()
         label.center = view.center
@@ -31,8 +31,8 @@ class ViewController: UIViewController {
         var buttons = [ALRadialMenuButton]()
         
         for i in 0..<8 {
-            let button = ALRadialMenuButton(frame: CGRectMake(0, 0, 44, 44))
-            button.setImage(UIImage(named: "icon\(i+1)"), forState: UIControlState.Normal)
+            let button = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+            button.setImage(UIImage(named: "icon\(i+1)"), for: UIControlState.normal)
             buttons.append(button)
         }
         
@@ -40,11 +40,11 @@ class ViewController: UIViewController {
     }
     
     func showMenu(sender: UITapGestureRecognizer) {
-        ALRadialMenu()
-            .setButtons(generateButtons())
-            .setDelay(0.05)
-            .setAnimationOrigin(sender.locationInView(view))
-            .presentInView(view)
+        _ = ALRadialMenu()
+            .setButtons(buttons: generateButtons())
+            .setDelay(delay: 0.05)
+            .setAnimationOrigin(animationOrigin: sender.location(in: view))
+            .presentInView(view: view)
     }
 }
 
