@@ -286,7 +286,7 @@ public class ALRadialMenu: UIButton {
             
             var c = buttons.count
             
-            if circumference.degrees < 360 {
+            if circumference.degrees < 360 && c > 1 {
                 c -= 1
             }
             
