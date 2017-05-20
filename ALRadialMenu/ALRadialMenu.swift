@@ -14,7 +14,7 @@ private struct Angle {
     var degrees: Double
     
     func radians() -> Double {
-        return degrees * (M_PI/180)
+        return degrees * (Double.pi / 180)
     }
 }
 
