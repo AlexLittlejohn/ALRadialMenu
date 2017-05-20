@@ -135,6 +135,18 @@ public class ALRadialMenu: UIButton {
     }
     
     /**
+     Set the background color of overlay view
+     
+     Default = default UIView background color
+     
+     - parameter UIColor: color
+     */
+    public func setOverlayBackgroundColor(backgroundColor: UIColor) -> Self {
+        self.overlayView.backgroundColor = backgroundColor
+        return self
+    }
+    
+    /**
     Present the buttons in the specified view's window
     
     - parameter UIView: view
