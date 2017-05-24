@@ -63,10 +63,10 @@ public class ALRadialMenu: UIButton {
             let action = button.action
             
             button.center = center
-            button.action = {
+            button.action = { button in
                 self._dismiss(selectedIndex: i)
                 if let a = action {
-                    a()
+                    a(button)
                 }
             }
         }
