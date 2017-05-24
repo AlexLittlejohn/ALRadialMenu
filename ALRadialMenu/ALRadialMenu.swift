@@ -14,7 +14,7 @@ private struct Angle {
     var degrees: Double
     
     func radians() -> Double {
-        return degrees * (M_PI/180)
+        return degrees * (Double.pi / 180)
     }
 }
 
@@ -310,7 +310,7 @@ public class ALRadialMenu: UIButton {
             
             var c = buttons.count
             
-            if circumference.degrees < 360 {
+            if circumference.degrees < 360 && c > 1 {
                 c -= 1
             }
             
