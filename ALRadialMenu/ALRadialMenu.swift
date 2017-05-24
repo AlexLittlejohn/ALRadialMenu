@@ -142,14 +142,27 @@ public class ALRadialMenu: UIButton {
     }
     
     /**
-     Set closure that will be called on dismiss
+    Set closure that will be called on dismiss
      
-     Default = nil
-     
-     */
+    Default = nil
+    
+    */
     @discardableResult
     public func setOnDismiss(onDismiss: @escaping ALAnimationsClosure) -> Self {
         self.onDismiss = onDismiss
+        return self
+    }
+    
+    /**
+    Set the background color of overlay view
+     
+    Default = default UIView background color
+     
+    - parameter UIColor: color
+    */
+    @discardableResult
+    public func setOverlayBackgroundColor(backgroundColor: UIColor) -> Self {
+        self.overlayView.backgroundColor = backgroundColor
         return self
     }
     
