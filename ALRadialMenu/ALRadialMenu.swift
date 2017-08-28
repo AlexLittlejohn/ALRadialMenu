@@ -8,7 +8,7 @@
 
 import UIKit
 
-private typealias ALAnimationsClosure = () -> Void
+public typealias ALAnimationsClosure = () -> Void
 
 private struct Angle {
     var degrees: Double
@@ -45,6 +45,7 @@ public class ALRadialMenu: UIButton {
     
     - parameter Double: The delay in seconds
     */
+    @discardableResult
     public func setDelay(delay: Double) -> Self {
         self.delay = delay
         return self
@@ -55,6 +56,7 @@ public class ALRadialMenu: UIButton {
     
     - parameter Array: An array of ALRadialMenuButton instances
     */
+    @discardableResult
     public func setButtons(buttons: [ALRadialMenuButton]) -> Self {
         self.buttons = buttons
         
@@ -81,6 +83,7 @@ public class ALRadialMenu: UIButton {
     
     - parameter Bool: enabled or disable the gesture
     */
+    @discardableResult
     public func setDismissOnOverlayTap(dismissOnOverlayTap: Bool) -> Self {
         self.dismissOnOverlayTap = dismissOnOverlayTap
         return self
@@ -93,6 +96,7 @@ public class ALRadialMenu: UIButton {
     
     - parameter Double: the radius in pts
     */
+    @discardableResult
     public func setRadius(radius: Double) -> Self {
         self.radius = radius
         return self
@@ -105,6 +109,7 @@ public class ALRadialMenu: UIButton {
     
     - parameter Double: the angle in degrees
     */
+    @discardableResult
     public func setStartAngle(degrees: Double) -> Self {
         self.startAngle = Angle(degrees: degrees)
         return self
@@ -117,6 +122,7 @@ public class ALRadialMenu: UIButton {
     
     - parameter Double: the circumference in degrees
     */
+    @discardableResult
     public func setCircumference(degrees: Double) -> Self {
         self.circumference = Angle(degrees: degrees)
         return self
@@ -129,18 +135,32 @@ public class ALRadialMenu: UIButton {
     
     - parameter CGPoint: the origin point
     */
+    @discardableResult
     public func setAnimationOrigin(animationOrigin: CGPoint) -> Self {
         self.animationOrigin = animationOrigin
         return self
     }
     
     /**
-     Set the background color of overlay view
+    Set closure that will be called on dismiss
      
-     Default = default UIView background color
+    Default = nil
+    
+    */
+    @discardableResult
+    public func setOnDismiss(onDismiss: @escaping ALAnimationsClosure) -> Self {
+        self.onDismiss = onDismiss
+        return self
+    }
+    
+    /**
+    Set the background color of overlay view
      
-     - parameter UIColor: color
-     */
+    Default = default UIView background color
+     
+    - parameter UIColor: color
+    */
+    @discardableResult
     public func setOverlayBackgroundColor(backgroundColor: UIColor) -> Self {
         self.overlayView.backgroundColor = backgroundColor
         return self
@@ -151,6 +171,7 @@ public class ALRadialMenu: UIButton {
     
     - parameter UIView: view
     */
+    @discardableResult
     public func presentInView(view: UIView) -> Self {
         return presentInWindow(win: view.window!)
     }
@@ -160,6 +181,7 @@ public class ALRadialMenu: UIButton {
     
     - parameter UIWindow: window
     */
+    @discardableResult
     public func presentInWindow(win: UIWindow) -> Self {
         
         if buttons.count == 0 {
@@ -214,6 +236,8 @@ public class ALRadialMenu: UIButton {
         }
     }
     
+    private var onDismiss: ALAnimationsClosure?
+    
     private var overlayView = UIView(frame: UIScreen.main.bounds)
     
     private var radius: Double = 100
@@ -241,6 +265,7 @@ public class ALRadialMenu: UIButton {
     private func _dismiss(selectedIndex: Int) {
         
         overlayView.removeFromSuperview()
+        self.onDismiss?()
         
         for i in 0..<buttons.count {
             if i == selectedIndex {
