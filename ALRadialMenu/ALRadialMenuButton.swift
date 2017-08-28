@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias ALRadialMenuButtonAction = () -> Void
+public typealias ALRadialMenuButtonAction = (UIButton) -> Void
 
 public class ALRadialMenuButton: UIButton {
     public var action: ALRadialMenuButtonAction? {
@@ -23,7 +23,7 @@ public class ALRadialMenuButton: UIButton {
     
     internal func performAction() {
         if let a = action {
-            a()
+            a(self)
         }
     }
 }
