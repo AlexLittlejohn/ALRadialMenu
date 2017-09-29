@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         return buttons
     }
     
-    func showMenu(sender: UITapGestureRecognizer) {
+    @objc func showMenu(sender: UITapGestureRecognizer) {
         ALRadialMenu()
             .setButtons(buttons: generateButtons())
             .setDelay(delay: 0.05)
