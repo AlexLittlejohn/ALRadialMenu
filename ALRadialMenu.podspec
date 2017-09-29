@@ -9,4 +9,5 @@ Pod::Spec.new do |spec|
   spec.source_files       = "ALRadialMenu/*.{swift}"
   spec.homepage           = "https://github.com/AlexLittlejohn/ALRadialMenu"
   spec.author             = { "Alex Littlejohn" => "alexlittlejohn@me.com" }
+  spec.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
 end
