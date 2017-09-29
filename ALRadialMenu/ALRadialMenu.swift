@@ -209,7 +209,7 @@ public class ALRadialMenu: UIButton {
     /**
     Dismiss the buttons with an animation
     */
-    public func dismiss() {
+    @objc public func dismiss() {
         
         if buttons.count == 0 {
             print("ALRadialMenu has no buttons to dismiss")
