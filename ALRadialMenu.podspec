@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name               = "ALRadialMenu"
-  spec.version            = "1.0.6"
+  spec.version            = "2.0.0"
   spec.summary            = "A radial/circular menu featuring spring animations"
   spec.source             = { :git => "https://github.com/AlexLittlejohn/ALRadialMenu.git", :tag => spec.version.to_s }
   spec.requires_arc       = true
