@@ -172,12 +172,12 @@
 					FA9062931AED25F700B7735F = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = GAPQH4AM76;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1130;
 					};
 					FA9062A81AED25F700B7735F = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = GAPQH4AM76;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1130;
 						TestTargetID = FA9062931AED25F700B7735F;
 					};
 				};
@@ -369,7 +369,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.alx.zero.ALRadialMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -386,7 +386,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.alx.zero.ALRadialMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -409,7 +409,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zero.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ALRadialMenu.app/ALRadialMenu";
 			};
 			name = Debug;
@@ -428,7 +428,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zero.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ALRadialMenu.app/ALRadialMenu";
 			};
 			name = Release;
