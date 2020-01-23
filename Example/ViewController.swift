@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         
         for i in 0..<8 {
             let button = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-            button.setImage(UIImage(named: "icon\(i+1)"), for: UIControlState.normal)
+            button.setImage(UIImage(named: "icon\(i+1)"), for: UIControl.State.normal)
             buttons.append(button)
         }
         

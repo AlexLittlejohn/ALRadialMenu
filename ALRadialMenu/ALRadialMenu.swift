@@ -252,7 +252,7 @@ public class ALRadialMenu: UIButton {
     private var animationOrigin: CGPoint!
     
     private var dismissGesture: UITapGestureRecognizer!
-    private var animationOptions: UIViewAnimationOptions = [.curveEaseInOut, .beginFromCurrentState]
+    private var animationOptions: UIView.AnimationOptions = [.curveEaseInOut, .beginFromCurrentState]
 
     // MARK: Private API
     private func commonInit() {
