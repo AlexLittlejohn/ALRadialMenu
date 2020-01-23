@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55121D3D23DA23A60035FA4F /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55121D3C23DA23A60035FA4F /* Launch.storyboard */; };
 		FA90629A1AED25F700B7735F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9062991AED25F700B7735F /* AppDelegate.swift */; };
 		FA90629C1AED25F700B7735F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90629B1AED25F700B7735F /* ViewController.swift */; };
 		FA9062A11AED25F700B7735F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA9062A01AED25F700B7735F /* Images.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		55121D3C23DA23A60035FA4F /* Launch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		FA9062941AED25F700B7735F /* ALRadialMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALRadialMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA9062981AED25F700B7735F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA9062991AED25F700B7735F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				FA9062A01AED25F700B7735F /* Images.xcassets */,
 				FA9062981AED25F700B7735F /* Info.plist */,
+				55121D3C23DA23A60035FA4F /* Launch.storyboard */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA9062A11AED25F700B7735F /* Images.xcassets in Resources */,
+				55121D3D23DA23A60035FA4F /* Launch.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +365,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = GAPQH4AM76;
 				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -377,7 +380,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = GAPQH4AM76;
 				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
