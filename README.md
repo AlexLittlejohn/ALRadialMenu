@@ -1,3 +1,5 @@
+# :warning: This project is unmaintained
+
 # ALRadialMenu
 A radial/circular menu featuring spring animations. Written in swift.  
 Experimenting with fluent interfaces (https://github.com/vandadnp/swift-weekly/blob/master/issue05/README.md)
